@@ -25,7 +25,7 @@ namespace IDistributedCacheRedisApp.Web
         {
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = "localhost6379";
+                options.Configuration = "localhost:6379";
             });
 
             services.AddControllersWithViews();

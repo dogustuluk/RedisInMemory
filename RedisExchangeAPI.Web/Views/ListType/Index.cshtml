@@ -1,0 +1,23 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- enctype -->
+@*1) text/plain ---> Eğer dataların düz bir metin olarak gitmesini istiyorsak kullanırız. Tercih edilen bir yöntem değildir.
+2) multipart/form-data ---> Eğer formun içerisinde input file tag'ini kullanıyorsak bunu kullanmalıyız.
+3) application/x-www-form-urlencoded ---> Eğer dataların encode edilmesini istiyorsak kullanırız.
+*@
+<!-- #endregion -->
+
+<form method="post" asp-action="Add" enctype="application/x-www-form-urlencoded">
+    <input type="text" name="name" />
+    <button type="submit">Kaydet</button>
+</form>
+
+<hr />
+<a asp-action="DeleteFirstItem">İlk değeri sil</a>
+@foreach (var item in Model)
+{
+    <h2>@item <a asp-controller="ListType" asp-action="DeleteItem" asp-route-name="@item">Sil</a></h2>
+}

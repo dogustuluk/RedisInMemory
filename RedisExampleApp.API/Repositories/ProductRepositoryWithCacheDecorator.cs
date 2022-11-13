@@ -6,7 +6,7 @@ using System.Text.Json;
 namespace RedisExampleApp.API.Repositories
 {
     /// <summary>
-    /// Decorator design pattern ile IProductRepository'yi implemente edecek fakat dataların cache'ten geleceği sınıftır. Burada database ile ilgili bir işlem olduğu için ilgili Repository interface'i alınacaktır. Service ya da Controller katmanlarından ilgili sınıf alınamaz. 
+    /// Decorator design pattern ile IProductRepository'yi implemente edecek fakat dataların cache'ten geleceği sınıftır. Burada database ile ilgili bir işlem olduğu için ilgili Repository interface'i alınacaktır. Service ya da Controller katmanlarından ilgili sınıf alınamaz. Uygulamanın herhangi bir yerinde IProductRepository interface'i ile karşılaşırsa DI Container'ın ProductRepositoryWithCacheDecorator sınıfından bir nesne örneği vermesi gerekmektedir. Ancak ProductRepositoryWithCacheDecorator sınıfının içerisinde IProductRepository ile karşılaşırsa ProductRepository'den nesne örneği vermelidir.
     /// </summary>
     public class ProductRepositoryWithCacheDecorator : IProductRepository
     {

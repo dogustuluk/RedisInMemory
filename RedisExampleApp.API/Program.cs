@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using RedisExampleApp.API.Models;
 using RedisExampleApp.API.Repositories;
+using RedisExampleApp.Cache;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,25 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseInMemoryDatabase("myDatabase");
 });
+
+
+#region sp=>
+/*
+ * RedisService url'i dýþarýdan aldýðý için kendi nesne örneðimizi kendimizin oluþturmasý gerekmektedir. Bundan dolayý burada sp(service provider) ile içeri gireriz.
+ */
+#endregion
+builder.Services.AddSingleton<RedisService>(sp =>
+{
+    return new RedisService(builder.Configuration["CacheOptions:Url"]);
+});
+
+builder.Services.AddSingleton<IDatabase>(sp =>
+{
+    var redisService = sp.GetRequiredService<RedisService>();
+
+    return redisService.GetDb(0);
+});
+
 
 var app = builder.Build();
 
